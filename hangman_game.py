@@ -84,7 +84,7 @@ def show_principal_view(random_adjective):
 
         return hidden_adjective
 
-    def print_header(hidden_adjective, adjective_meaning, help_bool, warning_advise):
+    def print_header(hidden_adjective, adjective_meaning, help_bool, attempts, warning_advise):
         get_centered_text = lambda text, center_length = 65, separator = ' ': text.center(center_length, separator)
         
         def print_title():
@@ -105,6 +105,13 @@ def show_principal_view(random_adjective):
                 print(f'|{help_literal}|')
                 print(f'|{adjective_meaning}|')
             print('—' * help_characters) 
+        
+        def print_attempts(attempts):
+            attempts_characters = 67
+            attempts_text = get_centered_text(f'Attempts: {attempts}', attempts_characters - 2)
+            print('—' * attempts_characters)
+            print(f'|{attempts_text}|')
+            print('—' * attempts_characters)
 
         def print_hidden_adjective(hidden_adjective):
             hidden_adjective_characters = 67
@@ -123,6 +130,7 @@ def show_principal_view(random_adjective):
         clear_screen(operative_system)
         print_title()
         print_help(adjective_meaning, help_bool)
+        print_attempts(attempts)
         print_hidden_adjective(hidden_adjective)
         print_warning_advise(warning_advise)
         print()
@@ -134,14 +142,16 @@ def show_principal_view(random_adjective):
     hidden_adjective = '_' * len(adjective) 
     help_bool = False
     warning_advise = [ False, ]
+    attempts = 0
 
-    while hidden_adjective != adjective:
-        print_header(hidden_adjective, adjective_meaning, help_bool, warning_advise)
+    while (hidden_adjective != adjective) and (attempts < 5) :
+        print_header(hidden_adjective, adjective_meaning, help_bool, attempts, warning_advise)
         letter = input(f'Enter a letter: ').lower()
 
         try:
             if letter == '--help':
                 help_bool = not help_bool
+                continue
             elif len(letter) != 1:
                 raise ValueError('Characters Length Error: You must type a single character')
             elif not letter.isalpha():
@@ -152,15 +162,35 @@ def show_principal_view(random_adjective):
             continue
         
         warning_advise = [ False, ]
+        
+        old_hidden_adjective = hidden_adjective
         hidden_adjective = replace_hidden_adjective(letter, adjective, 0, hidden_adjective)
+        if old_hidden_adjective == hidden_adjective:
+            attempts += 1
+
+    print_header(hidden_adjective, adjective_meaning, help_bool, attempts, warning_advise)
+    if attempts < 5:
+        print(f'You win, the win word is [ {adjective.upper()} ]')
+    else:
+        print(f'You lose :(, the win word was [ {adjective.upper()} ]')
     
-    print_header(hidden_adjective, adjective_meaning, help_bool, warning_advise)
-    print(f'You win, the win word is [ {adjective.upper()} ]')
+    print()
 
 def run():
     adjectives_dictionary = get_adjectives_dictionary()
-    random_adjective = get_random_adjective(adjectives_dictionary)
-    show_principal_view(random_adjective)
+    play_again = ''
+    while True:
+        random_adjective = get_random_adjective(adjectives_dictionary)
+        show_principal_view(random_adjective)
+        while not (play_again.lower() in ('yes', 'y', 'not', 'no', 'n')):
+            play_again = input('Do you want play again? [ yes/not ]: ')
+        if play_again.lower() in ('yes', 'y'):
+            play_again = ''
+            continue
+        else:
+            break
+    
+    print()
 
 if __name__ == '__main__':
     run()

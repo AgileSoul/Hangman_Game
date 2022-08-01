@@ -10,3 +10,19 @@ cheerful: noticeably happy and optimistic.
 clever: quick to understand, learn, and devise or apply ideas; intelligent.
 clumsy: awkward in movement or in handling things.
 combative: ready or eager to fight; pugnacious.
+defiant: showing defiance.
+dangerous: able or likely to cause harm or injury.
+delightful: causing delight; charming.
+dizzy: having or involving a sensation of spinning around and losing one's balance.
+elated: ecstatically happy.
+encouraging: giving someone support or confidence; supportive.
+enthusiastic: having or showing intense and eager enjoyment, interest, or approval.
+envious: feeling or showing envy.
+faithful: remaining loyal and steadfast.
+fancy: elaborate in structure or decoration.
+fierce: having or displaying an intense or ferocious aggressiveness.
+foolish: (of a person or action) lacking good sense or judgment; unwise.
+gentle: having or showing a mild, kind, or tender temperament or character.
+gleaming: (of a smooth surface) reflecting light, typically because very clean or polished.
+gorgeous: beautiful; very attractive.
+grumpy: bad-tempered and irritable.
